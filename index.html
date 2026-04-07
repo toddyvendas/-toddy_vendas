@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Toddy Vendas</title>
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+    <!-- Fundo GIF -->
+    <div class="background"></div>
+
+    <!-- Camada escura -->
+    <div class="overlay"></div>
+
+    <!-- Termos no canto direito -->
+    <a href="#" class="termos-btn" onclick="abrirTermos()">Termos</a>
+
+    <!-- Conteúdo principal -->
+    <main class="container">
+
+        <!-- Logo / Nome -->
+        <div class="perfil">
+            <img src="assets/logo.png" alt="Logo" class="logo" />
+            <h1>Toddy vendas</h1>
+            <p>Escolha uma opção abaixo</p>
+        </div>
+
+        <!-- Botões -->
+        <div class="links">
+            <a href="https://wa.me/5586981564603" target="_blank" class="btn whatsapp">
+                <i class="fab fa-whatsapp"></i>
+                <span>Adquira os Cheats aqui</span>
+            </a>
+
+            <a href="https://instagram.com/edzxdk7" target="_blank" class="btn">
+                <i class="fab fa-instagram"></i>
+                <span>Instagram</span>
+            </a>
+
+            <a href="https://t.me/toddy_vendas" target="_blank" class="btn">
+                <i class="fab fa-telegram"></i>
+                <span>Telegram</span>
+            </a>
+
+            <a href="https://www.tiktok.com/@toddymodsff" target="_blank" class="btn">
+                <i class="fab fa-tiktok"></i>
+                <span>TikTok</span>
+            </a>
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <p>Toddy Mods</p>
+    </footer>
+
+    <!-- Modal de Termos -->
+    <div class="modal" id="modalTermos">
+        <div class="modal-content">
+            <span class="fechar" onclick="fecharTermos()">&times;</span>
+            <h2>Termos</h2>
+            <p>
+                Ao adquirir qualquer produto, o cliente declara estar ciente de todas as informações passadas.
+                Não realizamos reembolso após a entrega do produto.
+                Suporte, informações adicionais e atendimento serão realizados através dos canais oficiais.
+            </p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
