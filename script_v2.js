@@ -1,14 +1,19 @@
-function abrirTermos() {
-    document.getElementById("modalTermos").style.display = "flex";
+function openModal(id) {
+    document.getElementById(id).style.display = 'flex';
 }
 
-function fecharTermos() {
-    document.getElementById("modalTermos").style.display = "none";
+function closeModal(id) {
+    document.getElementById(id).style.display = 'none';
 }
 
-window.onclick = function (event) {
-    const modal = document.getElementById("modalTermos");
-    if (event.target === modal) {
-        modal.style.display = "none";
+window.addEventListener('click', function (e) {
+    document.querySelectorAll('.modal').forEach(modal => {
+        if (e.target === modal) modal.style.display = 'none';
+    });
+});
+
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+        document.querySelectorAll('.modal').forEach(modal => modal.style.display = 'none');
     }
-}
+});
