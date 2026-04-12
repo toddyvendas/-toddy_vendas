@@ -1,508 +1,293 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Toddy Vendas</title>
-    <meta name="theme-color" content="#0b0b0b" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <style>
-        :root {
-            --bg: #090909;
-            --card: rgba(12,12,12,.66);
-            --card-2: rgba(20,20,20,.82);
-            --text: #ffffff;
-            --muted: rgba(255,255,255,.72);
-            --stroke: rgba(255,255,255,.10);
-            --glow: 0 18px 50px rgba(0,0,0,.45);
-            --radius: 24px;
-            --accent: rgba(255,255,255,.14);
-            --accent-hover: rgba(255,255,255,.20);
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toddy Universe</title>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <style>
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            min-height: 100vh;
-            color: var(--text);
-            background: var(--bg);
+            background: #050505;
+            color: white;
             overflow-x: hidden;
-            position: relative;
+            min-height: 100vh;
         }
 
-        .background {
+        /* BACKGROUND ANIMADO */
+        .bg-animation {
             position: fixed;
-            inset: 0;
-            background: url('https://i.pinimg.com/originals/c5/4b/8e/c54b8ec9d12edf715086e9f87ea476d7.gif') center/cover no-repeat;
-            z-index: -4;
-            transform: scale(1.04);
-            filter: saturate(1.05);
-        }
-
-        .overlay {
-            position: fixed;
-            inset: 0;
-            background: radial-gradient(circle at top, rgba(255,255,255,.06), transparent 25%), linear-gradient(to bottom, rgba(0,0,0,.48), rgba(0,0,0,.78));
-            backdrop-filter: blur(4px);
+            width: 100%;
+            height: 100%;
             z-index: -3;
+            background: radial-gradient(circle at 20% 20%,#1a1a1a 0%,transparent 25%), radial-gradient(circle at 80% 30%,#111 0%,transparent 30%), radial-gradient(circle at 50% 80%,#151515 0%,transparent 35%);
+            animation: bgMove 12s infinite alternate ease-in-out;
         }
 
-        .noise {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            opacity: .035;
-            background-image: radial-gradient(#fff 0.7px, transparent 0.7px);
-            background-size: 12px 12px;
-            z-index: -2;
+        @keyframes bgMove {
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1.15);
+            }
         }
 
-        .topbar {
-            position: fixed;
-            top: 18px;
-            right: 18px;
-            left: 18px;
+        /* HEADER */
+        header {
+            padding: 30px 8%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 20;
-        }
-
-        .brand-mini {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(0,0,0,.28);
-            border: 1px solid var(--stroke);
-            backdrop-filter: blur(10px);
-            padding: 10px 14px;
-            border-radius: 999px;
-            box-shadow: var(--glow);
-            font-size: 14px;
-            color: var(--muted);
-        }
-
-            .brand-mini .dot {
-                width: 8px;
-                height: 8px;
-                border-radius: 50%;
-                background: #6cff95;
-                box-shadow: 0 0 12px #6cff95;
-            }
-
-        .top-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .ghost-btn {
-            border: 1px solid var(--stroke);
-            background: rgba(0,0,0,.28);
-            color: var(--text);
-            text-decoration: none;
-            padding: 11px 15px;
-            border-radius: 999px;
-            backdrop-filter: blur(10px);
-            box-shadow: var(--glow);
-            font-size: 14px;
-            transition: .25s ease;
-            cursor: pointer;
-        }
-
-            .ghost-btn:hover {
-                transform: translateY(-2px);
-                background: rgba(255,255,255,.08);
-            }
-
-        .container {
-            min-height: 100vh;
-            display: grid;
-            place-items: center;
-            padding: 96px 18px 110px;
-        }
-
-        .card {
-            width: 100%;
-            max-width: 560px;
-            background: var(--card);
-            border: 1px solid var(--stroke);
-            backdrop-filter: blur(16px);
-            border-radius: 34px;
-            box-shadow: var(--glow);
-            padding: 28px;
-            position: relative;
-            overflow: hidden;
-            animation: fadeUp .9s ease;
-        }
-
-            .card::before {
-                content: "";
-                position: absolute;
-                inset: -1px;
-                background: linear-gradient(120deg, transparent 20%, rgba(255,255,255,.08), transparent 70%);
-                opacity: .6;
-                pointer-events: none;
-            }
-
-        .perfil {
-            text-align: center;
-            margin-bottom: 24px;
-        }
-
-        .logo-wrap {
-            width: 142px;
-            height: 142px;
-            margin: 0 auto 16px;
-            padding: 6px;
-            border-radius: 50%;
-            background: linear-gradient(145deg, rgba(255,255,255,.12), rgba(255,255,255,.02));
-            box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 18px 40px rgba(0,0,0,.45);
         }
 
         .logo {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-            display: block;
-            border: 1px solid rgba(255,255,255,.08);
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 3px;
         }
 
-        .perfil h1 {
-            font-size: clamp(28px, 5vw, 38px);
-            font-weight: 800;
-            letter-spacing: -.03em;
-            margin-bottom: 8px;
-            text-shadow: 0 0 25px rgba(255,255,255,.08);
+        .nav {
+            display: flex;
+            gap: 20px;
         }
 
-        .perfil p {
-            color: var(--muted);
-            font-size: 15px;
-            max-width: 360px;
-            margin: 0 auto;
-            line-height: 1.65;
-        }
+            .nav a {
+                text-decoration: none;
+                color: #aaa;
+                transition: .3s;
+            }
 
-        .badges {
+                .nav a:hover {
+                    color: #fff;
+                }
+
+        /* HERO */
+        .hero {
+            min-height: 85vh;
             display: flex;
             justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin: 18px 0 8px;
+            align-items: center;
+            padding: 30px;
         }
 
-        .badge {
-            font-size: 12px;
-            color: rgba(255,255,255,.82);
-            padding: 9px 12px;
-            border-radius: 999px;
-            border: 1px solid var(--stroke);
-            background: rgba(255,255,255,.05);
+        .hero-box {
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
         }
 
-        .links {
+        /* ESQUERDA */
+        .left h1 {
+            font-size: 70px;
+            line-height: 1;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+            .left h1 span {
+                color: #888;
+            }
+
+        .left p {
+            color: #888;
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        /* BOTÕES */
+        .buttons {
             display: flex;
-            flex-direction: column;
-            gap: 14px;
-            margin-top: 20px;
+            gap: 15px;
+            flex-wrap: wrap;
         }
 
         .btn {
-            position: relative;
-            overflow: hidden;
+            padding: 16px 28px;
+            background: #111;
+            border: 1px solid #222;
+            color: white;
             text-decoration: none;
-            color: var(--text);
-            background: rgba(8,8,8,.78);
-            border: 1px solid rgba(255,255,255,.08);
-            padding: 17px 18px;
-            border-radius: 22px;
-            font-size: 16px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 12px 28px rgba(0,0,0,.32);
-            transition: .25s ease;
+            border-radius: 14px;
+            font-weight: bold;
+            transition: .3s;
         }
-
-            .btn::before {
-                content: "";
-                position: absolute;
-                inset: 0;
-                transform: translateX(-110%);
-                background: linear-gradient(90deg, transparent, rgba(255,255,255,.10), transparent);
-                transition: .7s ease;
-            }
 
             .btn:hover {
-                transform: translateY(-3px) scale(1.01);
-                background: rgba(12,12,12,.92);
+                transform: translateY(-4px);
+                background: #191919;
+                box-shadow: 0 0 25px #ffffff15;
             }
 
-                .btn:hover::before {
-                    transform: translateX(110%);
-                }
-
-            .btn i {
-                font-size: 18px;
-            }
-
-        .cta {
-            margin-top: 18px;
-            text-align: center;
-            color: var(--muted);
-            font-size: 13px;
-        }
-
-        .footer {
-            position: fixed;
-            bottom: 16px;
-            width: 100%;
-            text-align: center;
-            z-index: 5;
-            color: rgba(255,255,255,.74);
-            font-size: 13px;
-            letter-spacing: .18em;
-            text-transform: uppercase;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            z-index: 30;
-            background: rgba(0,0,0,.72);
-            backdrop-filter: blur(6px);
+        /* DIREITA */
+        .right {
+            display: flex;
             justify-content: center;
             align-items: center;
-            padding: 18px;
         }
 
-        .modal-content {
-            width: 100%;
-            max-width: 560px;
-            background: var(--card-2);
-            border: 1px solid var(--stroke);
-            border-radius: 28px;
-            padding: 28px;
-            box-shadow: var(--glow);
-            animation: pop .25s ease;
-        }
-
-        .modal-header {
+        .orb {
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            background: radial-gradient(circle,#2a2a2a,#0a0a0a);
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            margin-bottom: 16px;
+            box-shadow: 0 0 80px rgba(255,255,255,.08), inset 0 0 40px rgba(255,255,255,.05);
+            animation: float 4s infinite ease-in-out;
+            position: relative;
         }
 
-            .modal-header h2 {
-                font-size: 24px;
+            .orb img {
+                width: 85%;
+                height: 85%;
+                object-fit: cover;
+                border-radius: 50%;
             }
 
-        .close {
-            border: none;
-            background: rgba(255,255,255,.06);
-            color: white;
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            font-size: 20px;
-        }
-
-        .modal-content p, .modal-content li {
-            color: var(--muted);
-            line-height: 1.8;
-            font-size: 15px;
-        }
-
-        .modal-content ul {
-            padding-left: 18px;
-            margin-top: 8px;
-        }
-
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(24px);
+        @keyframes float {
+            0%,100% {
+                transform: translateY(0px);
             }
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
+            50% {
+                transform: translateY(-20px);
             }
         }
 
-        @keyframes pop {
-            from {
-                opacity: 0;
-                transform: scale(.96);
-            }
-
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+        /* SOCIAL BOX */
+        .socials {
+            padding: 30px 8%;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
-        @media (max-width: 600px) {
-            .topbar {
-                top: 14px;
-                left: 14px;
-                right: 14px;
+        .social-card {
+            width: 220px;
+            padding: 25px;
+            background: #0d0d0d;
+            border: 1px solid #1f1f1f;
+            border-radius: 20px;
+            text-align: center;
+            transition: .3s;
+        }
+
+            .social-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 0 25px #ffffff10;
             }
 
-            .brand-mini {
-                display: none;
+            .social-card i {
+                font-size: 30px;
+                margin-bottom: 15px;
             }
 
-            .card {
-                border-radius: 28px;
-                padding: 22px 18px;
+            .social-card h3 {
+                margin-bottom: 10px;
             }
 
-            .logo-wrap {
-                width: 126px;
-                height: 126px;
+        /* RESPONSIVO */
+        @media(max-width:950px) {
+
+            .hero-box {
+                grid-template-columns: 1fr;
+                text-align: center;
             }
 
-            .btn {
-                border-radius: 20px;
-                padding: 16px 14px;
-                font-size: 15px;
+            .left h1 {
+                font-size: 50px;
             }
 
-            .footer {
-                font-size: 12px;
-                letter-spacing: .12em;
+            .buttons {
+                justify-content: center;
+            }
+
+            .orb {
+                width: 260px;
+                height: 260px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="background"></div>
-    <div class="overlay"></div>
-    <div class="noise"></div>
 
-    <header class="topbar">
-        <div class="brand-mini"><span class="dot"></span> Atendimento online</div>
-        <div class="top-actions">
-            <button class="ghost-btn" onclick="openModal('termosModal')">Termos</button>
-            <button class="ghost-btn" onclick="openModal('contatoModal')">Contato</button>
+    <div class="bg-animation"></div>
+
+    <header>
+        <div class="logo">TODDY</div>
+
+        <div class="nav">
+            <a href="#">Inicio</a>
+            <a href="#">Produtos</a>
+            <a href="#">Contato</a>
         </div>
     </header>
 
-    <main class="container">
-        <section class="card">
-            <div class="perfil">
-                <div class="logo-wrap">
-                    <img src="https://i.pinimg.com/736x/51/cb/c4/51cbc41f12da0a20f1cb0d15aa09ed21.jpg" alt="Logo Toddy Vendas" class="logo" />
+    <section class="hero">
+
+        <div class="hero-box">
+
+            <div class="left">
+                <h1>THE <span>FUTURE</span><br>OF SALES</h1>
+
+                <p>
+                    Bem-vindo ao novo nível.
+                    Uma experiência premium criada para quem busca qualidade, estilo e exclusividade.
+                </p>
+
+                <div class="buttons">
+                    <a href="#" class="btn">Comprar Agora</a>
+                    <a href="#" class="btn">Entrar Telegram</a>
                 </div>
-                <h1>Toddy vendas</h1>
-                <p>Escolha uma opção abaixo para entrar em contato, conhecer nossos canais e adquirir seus produtos.</p>
+            </div>
 
-                <div class="badges">
-                    <span class="badge">Atendimento rápido</span>
-                    <span class="badge">Suporte oficial</span>
-                    <span class="badge">Links verificados</span>
+            <div class="right">
+                <div class="orb">
+                    <img src="https://i.pinimg.com/736x/51/cb/c4/51cbc41f12da0a20f1cb0d15aa09ed21.jpg">
                 </div>
             </div>
 
-            <div class="links">
-                <a href="https://wa.me/558592653516" target="_blank" class="btn">
-                    <i class="fab fa-whatsapp"></i>
-                    <span>Adquira os Cheats aqui</span>
-                </a>
-
-                <a href="https://instagram.com/edzxdk7" target="_blank" class="btn">
-                    <i class="fab fa-instagram"></i>
-                    <span>Instagram</span>
-                </a>
-
-                <a href="https://t.me/toddy_vendas" target="_blank" class="btn">
-                    <i class="fab fa-telegram"></i>
-                    <span>Telegram</span>
-                </a>
-
-                <a href="https://www.tiktok.com/@toddymodsff" target="_blank" class="btn">
-                    <i class="fab fa-tiktok"></i>
-                    <span>TikTok</span>
-                </a>
-            </div>
-
-            <div class="cta">Role zero, clique rápido, visual limpo.</div>
-        </section>
-    </main>
-
-    <footer class="footer">Toddy Mods</footer>
-
-    <div class="modal" id="termosModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Termos</h2>
-                <button class="close" onclick="closeModal('termosModal')">×</button>
-            </div>
-            <p>Ao adquirir qualquer produto, o cliente declara estar ciente das informações fornecidas antes da compra.</p>
-            <ul>
-                <li>Não realizamos reembolso após a entrega do produto.</li>
-                <li>O suporte é realizado somente pelos canais oficiais.</li>
-                <li>Evite tratar com terceiros fora dos links disponibilizados neste site.</li>
-            </ul>
         </div>
-    </div>
 
-    <div class="modal" id="contatoModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Contato</h2>
-                <button class="close" onclick="closeModal('contatoModal')">×</button>
-            </div>
-            <p>Fale conosco pelo canal que preferir:</p>
-            <ul>
-                <li>WhatsApp: +55 86 98156-4603</li>
-                <li>Telegram: @toddy_vendas</li>
-                <li>Instagram: @edzxdk7</li>
-                <li>TikTok: @toddymodsff</li>
-            </ul>
+    </section>
+
+    <section class="socials">
+
+        <div class="social-card">
+            <i class="fab fa-instagram"></i>
+            <h3>Instagram</h3>
+            <p>@edzxdk7</p>
         </div>
-    </div>
 
-    <script>
-    function openModal(id) {
-      document.getElementById(id).style.display = 'flex';
-    }
+        <div class="social-card">
+            <i class="fab fa-telegram"></i>
+            <h3>Telegram</h3>
+            <p>@toddy_vendas</p>
+        </div>
 
-    function closeModal(id) {
-      document.getElementById(id).style.display = 'none';
-    }
+        <div class="social-card">
+            <i class="fab fa-whatsapp"></i>
+            <h3>WhatsApp</h3>
+            <p>Atendimento</p>
+        </div>
 
-    window.addEventListener('click', function(e) {
-      document.querySelectorAll('.modal').forEach(modal => {
-        if (e.target === modal) modal.style.display = 'none';
-      });
-    });
+    </section>
 
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        document.querySelectorAll('.modal').forEach(modal => modal.style.display = 'none');
-      }
-    });
-    </script>
 </body>
 </html>
